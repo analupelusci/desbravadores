@@ -41,15 +41,15 @@ jobs:
        #Runs a set of commands using the runners shell
 
     - name: Step 2 Install Newman-Reporter-Htmlextra
-      run: sudo npm install - g newman-reporter-htmlextra # Instalar as dependências do projeto
+      run: sudo npm install -g newman-reporter-htmlextra # Instalar as dependências do projeto
       
       #Runs a set of commands using the runners shell
-    - name: Step 3 Install Execute collection
+    - name: Step 3 Execute collection
       run: newman run ./user.json -g ./global.json -e ./postman.json --delay-request 2 --reporters cli, -r htmlextra-export ./result/Report.html
 
 
     - name: Step4 Archive production artifacts
-      uses: action/upload-artifact@v3
+      uses: actions/upload-artifact@v3
       with:
           name: report
           path: ./result/Report.html
