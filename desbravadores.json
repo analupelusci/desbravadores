@@ -1,0 +1,291 @@
+{
+	"id": "76163801-4f15-4309-ab1a-d4112b1fcb94",
+	"name": "desbravadores",
+	"values": [
+		{
+			"key": "url",
+			"value": "https://develop.qacoders-academy.com.br/api/",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "responseBody",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "EmailAdmin",
+			"value": "sysadmin@qacoders.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PasswordAdmim",
+			"value": "1234@Test",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "FirstName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LastName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "FullName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ProviderMail",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "MsgBoardCadastro",
+			"value": "Cadastro realizado com sucesso!",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "IdBoard",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "NameBoard",
+			"value": "abcaaa",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "countBoard",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "countBoard2",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Name",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "message",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Message",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "name",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BoardName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Status",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Mail",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CPF",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Password1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Password2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Password",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "IdUser",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mensagem",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Mensagem",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AccessProfile",
+			"value": "ADMIN",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "SpecialCharacter",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Number",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AccessProfile1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LetraCPF",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CPF1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CaracterCPF",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "TresPrimeiros",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "TresSegundos",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "DigitoCPF",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Caracter",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Password3",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Password4",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PasswordConfirm",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "NewNameBoard",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CountUser",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CountUser2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "StatusUser",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "StatusUserFalse",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-06-07T00:03:39.125Z",
+	"_postman_exported_using": "Postman/10.24.26"
+}
