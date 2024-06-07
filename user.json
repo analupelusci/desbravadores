@@ -78,193 +78,6 @@
 			"response": []
 		},
 		{
-			"name": "signup User - Sucess",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"function firstName() {",
-							"",
-							"    let firstName = [\"Willian\", \"Ana\", \"Joao\", \"Maria\", \"Pedro\", \"Aniceto\", \"Raimundo\", \"Laura\", \"Bianca\", \"Josias\", \"Marcelo\", \"Euripedis\", \"Bruno\", \"Barnabe\", \"Astoufo\", \"Sofia\", \"Julia\", \"Carol\"];",
-							"",
-							"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"FirstName\", firstName());",
-							"",
-							"",
-							"function lastName() {",
-							"",
-							"    let lastName = [\"da Silva\", \"dos Santos\", \"de Oliveira\", \"Alves\", \"Ferreira\", \"Matarazo\", \"Martins\", \"Souza\", \"Pereira\", \"Kubitchek\", \"Jesus\", \"Lima\", \"Duarte\", \"Rodrigues\", \"Morais\", \"Pinto\", \"Gomes\", \"Ribeiro\"];",
-							"",
-							"    let randomItem = lastName[Math.floor(Math.random() * lastName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"LastName\", lastName());",
-							"",
-							"pm.environment.set(\"FullName\", pm.environment.get(\"FirstName\") + \" \" + pm.environment.get(\"LastName\"));",
-							"",
-							"",
-							"",
-							"/*function accessProfile() {",
-							"",
-							"    let accessProfile = [\"ADMIN \", \"FINANCEIRO\", \"ADMINISTRATIVO\", \"TI\", \"CUSTOS\", \"CONTROLADORIA\", \"VENDAS\", \"CONTAS\", \"SECRETARIA\"];",
-							"",
-							"    let randomItem = accessProfile[Math.floor(Math.random() * accessProfile.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"AccessProfile\", accessProfile());*/",
-							"",
-							"",
-							"function providerMail() {",
-							"",
-							"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\", \"@msn.com\", \"@homail.com\", \"@outlook.com\", \"@uol.com.br\", \"@terra.com.br\"];",
-							"",
-							"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"ProviderMail\", providerMail());",
-							"",
-							"pm.environment.set(\"Mail\", pm.environment.get(\"FirstName\") + \"_\" + pm.variables.replaceIn('{{$guid}}') + pm.environment.get(\"ProviderMail\"));",
-							"",
-							"",
-							"function gerarNumeroAleatorioCPF() {",
-							"    let numero = '';",
-							"    for (let i = 0; i < 11; i++) {",
-							"        numero += Math.floor(Math.random() * 10); // Adiciona um dígito aleatório de 0 a 9",
-							"    }",
-							"    return numero;",
-							"}",
-							"pm.environment.set(\"CPF\", gerarNumeroAleatorioCPF());",
-							"",
-							"function password1() {",
-							"",
-							"    let password1 = [\"Test\", \"Word\", \"Oficce\", \"Tes\", \"Ana\", \"Troca\", \"Valor\"];",
-							"    let randomItem = password1[Math.floor(Math.random() * password1.length)];",
-							"",
-							"    return randomItem;",
-							"}",
-							"pm.environment.set(\"Password1\",password1());",
-							"",
-							"function password2() {",
-							"     let password2 = '';",
-							"    for (let i = 0; i < 4; i++) {",
-							"       password2 += Math.floor(Math.random() * 10);",
-							"       }",
-							"         return password2;",
-							"}",
-							"pm.environment.set(\"Password2\",password2());",
-							"",
-							"function caracter() {",
-							"",
-							"    let caracter = [\"@\",\"#\",\"$\",\"%\"]",
-							"    let randomItem = caracter[Math.floor(Math.random() * caracter.length)];",
-							"    return randomItem;",
-							"   ",
-							"}",
-							"pm.environment.set(\"Caracter\",caracter());",
-							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") +pm.environment.get(\"Caracter\")+ pm.environment.get(\"Password2\"));"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let response = JSON.parse(responseBody);",
-							"pm.environment.set(\"IdUser\",response.user._id);",
-							"pm.environment.get(\"IdUser\",response.user._id);",
-							"",
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Check is Fullname true\", function(){",
-							"pm.expect(pm.variables.get(\"FullName\")).to.eql(JSON.parse(responseBody).user.fullName);",
-							"});",
-							"",
-							"pm.test(\"check is mail true\", function() {",
-							"pm.expect(pm.variables.get(\"Mail\")).to.eql(JSON.parse(responseBody).user.mail);",
-							"});",
-							"",
-							"pm.test(\"Check is accessProfile true\", function(){",
-							"    pm.expect(pm.variables.get(\"AccessProfile\")).to.eql(JSON.parse(responseBody).user.accessProfile);",
-							"});",
-							"",
-							"pm.test(\"check is CPF true\", function(){",
-							"    pm.expect(pm.variables.get(\"CPF\")).to.eql(JSON.parse(responseBody).user.cpf);",
-							"",
-							"});",
-							"",
-							"let Mensagem =  \"Olá \" +  pm.environment.get(\"FullName\") + \", cadastro realizado com sucesso.\";",
-							"",
-							"console.log(Mensagem);",
-							"",
-							"",
-							"pm.test(\"check is mensagem true\", function(){",
-							"    pm.expect(Mensagem).to.eql(JSON.parse(responseBody).msg);",
-							"",
-							"})",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{Token}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authorization",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"fullName\": \"{{FullName}}\",\n  \"mail\": \"{{Mail}}\",\n  \"accessProfile\": \"{{AccessProfile}}\",\n  \"cpf\": \"{{CPF}}\",\n  \"password\": \"{{Password}}\",\n  \"confirmPassword\": \"{{Password}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "signup User - Confirm Passoword different",
 			"event": [
 				{
@@ -1030,334 +843,6 @@
 							"pm.environment.set(\"Password2\",password2());",
 							"",
 							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") +pm.environment.get(\"Password2\"));"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});",
-							"",
-							"",
-							"pm.test(\"check is msg: Senha precisa ter: uma letra maiúscula, uma letra minúscula, um número, um caractere especial(@#$%) e tamanho entre 8-12.\", function(){",
-							"",
-							"    pm.expect(pm.globals.get(\"msgUserPasswordIncorret\")).to.eql(JSON.parse(responseBody).error[0]);",
-							"});",
-							"",
-							"",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{Token}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authorization",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"fullName\": \"{{FullName}}\",\n  \"mail\": \"{{Mail}}\",\n  \"accessProfile\": \"{{AccessProfile}}\",\n  \"cpf\": \"{{CPF}}\",\n  \"password\": \"{{Password}}\",\n  \"confirmPassword\": \"{{Password}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "signup User - Password with letter maiuscula",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"function firstName() {",
-							"",
-							"    let firstName = [\"Willian\", \"Ana\", \"Joao\", \"Maria\", \"Pedro\", \"Aniceto\", \"Raimundo\", \"Laura\", \"Bianca\", \"Josias\", \"Marcelo\", \"Euripedis\", \"Bruno\", \"Barnabe\", \"Astoufo\", \"Sofia\", \"Julia\", \"Carol\"];",
-							"",
-							"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"FirstName\", firstName());",
-							"",
-							"",
-							"function lastName() {",
-							"",
-							"    let lastName = [\"da Silva\", \"dos Santos\", \"de Oliveira\", \"Alves\", \"Ferreira\", \"Matarazo\", \"Martins\", \"Souza\", \"Pereira\", \"Kubitchek\", \"Jesus\", \"Lima\", \"Duarte\", \"Rodrigues\", \"Morais\", \"Pinto\", \"Gomes\", \"Ribeiro\"];",
-							"",
-							"    let randomItem = lastName[Math.floor(Math.random() * lastName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"LastName\", lastName());",
-							"",
-							"pm.environment.set(\"FullName\", pm.environment.get(\"FirstName\") + \" \" + pm.environment.get(\"LastName\"));",
-							"",
-							"",
-							"",
-							"/*function accessProfile() {",
-							"",
-							"    let accessProfile = [\"ADMIN \", \"FINANCEIRO\", \"ADMINISTRATIVO\", \"TI\", \"CUSTOS\", \"CONTROLADORIA\", \"VENDAS\", \"CONTAS\", \"SECRETARIA\"];",
-							"",
-							"    let randomItem = accessProfile[Math.floor(Math.random() * accessProfile.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"AccessProfile\", accessProfile());*/",
-							"",
-							"",
-							"function providerMail() {",
-							"",
-							"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\", \"@msn.com\", \"@homail.com\", \"@outlook.com\", \"@uol.com.br\", \"@terra.com.br\"];",
-							"",
-							"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"ProviderMail\", providerMail());",
-							"",
-							"pm.environment.set(\"Mail\", pm.environment.get(\"FirstName\") + \"_\" + pm.variables.replaceIn('{{$guid}}') + pm.environment.get(\"ProviderMail\"));",
-							"",
-							"",
-							"function gerarNumeroAleatorioCPF() {",
-							"    let numero = '';",
-							"    for (let i = 0; i < 11; i++) {",
-							"        numero += Math.floor(Math.random() * 10); // Adiciona um dígito aleatório de 0 a 9",
-							"    }",
-							"    return numero;",
-							"}",
-							"pm.environment.set(\"CPF\", gerarNumeroAleatorioCPF());",
-							"",
-							"function password1() {",
-							"",
-							"    let password1 = [\"TEST\", \"WORD\", \"OFICCE\", \"TES\", \"ANA\", \"TROCA\", \"VALOR\"];",
-							"    let randomItem = password1[Math.floor(Math.random() * password1.length)];",
-							"",
-							"    return randomItem;",
-							"}",
-							"pm.environment.set(\"Password1\",password1());",
-							"",
-							"function password2() {",
-							"     let password2 = '';",
-							"    for (let i = 0; i < 4; i++) {",
-							"       password2 += Math.floor(Math.random() * 10);",
-							"       }",
-							"         return password2;",
-							"}",
-							"pm.environment.set(\"Password2\",password2());",
-							"",
-							"function caracter() {",
-							"",
-							"    let caracter = [\"@\",\"#\",\"$\",\"%\"]",
-							"    let randomItem = caracter[Math.floor(Math.random() * caracter.length)];",
-							"    return randomItem;",
-							"   ",
-							"}",
-							"pm.environment.set(\"Caracter\",caracter());",
-							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") +pm.environment.get(\"Caracter\")+ pm.environment.get(\"Password2\"));"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});",
-							"",
-							"",
-							"pm.test(\"check is msg: Senha precisa ter: uma letra maiúscula, uma letra minúscula, um número, um caractere especial(@#$%) e tamanho entre 8-12.\", function(){",
-							"",
-							"    pm.expect(pm.globals.get(\"msgUserPasswordIncorret\")).to.eql(JSON.parse(responseBody).error[0]);",
-							"});",
-							"",
-							"",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{Token}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authorization",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"fullName\": \"{{FullName}}\",\n  \"mail\": \"{{Mail}}\",\n  \"accessProfile\": \"{{AccessProfile}}\",\n  \"cpf\": \"{{CPF}}\",\n  \"password\": \"{{Password}}\",\n  \"confirmPassword\": \"{{Password}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "signup User - Password with letter minuscula",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"function firstName() {",
-							"",
-							"    let firstName = [\"Willian\", \"Ana\", \"Joao\", \"Maria\", \"Pedro\", \"Aniceto\", \"Raimundo\", \"Laura\", \"Bianca\", \"Josias\", \"Marcelo\", \"Euripedis\", \"Bruno\", \"Barnabe\", \"Astoufo\", \"Sofia\", \"Julia\", \"Carol\"];",
-							"",
-							"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"FirstName\", firstName());",
-							"",
-							"",
-							"function lastName() {",
-							"",
-							"    let lastName = [\"da Silva\", \"dos Santos\", \"de Oliveira\", \"Alves\", \"Ferreira\", \"Matarazo\", \"Martins\", \"Souza\", \"Pereira\", \"Kubitchek\", \"Jesus\", \"Lima\", \"Duarte\", \"Rodrigues\", \"Morais\", \"Pinto\", \"Gomes\", \"Ribeiro\"];",
-							"",
-							"    let randomItem = lastName[Math.floor(Math.random() * lastName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"LastName\", lastName());",
-							"",
-							"pm.environment.set(\"FullName\", pm.environment.get(\"FirstName\") + \" \" + pm.environment.get(\"LastName\"));",
-							"",
-							"",
-							"",
-							"/*function accessProfile() {",
-							"",
-							"    let accessProfile = [\"ADMIN \", \"FINANCEIRO\", \"ADMINISTRATIVO\", \"TI\", \"CUSTOS\", \"CONTROLADORIA\", \"VENDAS\", \"CONTAS\", \"SECRETARIA\"];",
-							"",
-							"    let randomItem = accessProfile[Math.floor(Math.random() * accessProfile.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"AccessProfile\", accessProfile());*/",
-							"",
-							"",
-							"function providerMail() {",
-							"",
-							"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\", \"@msn.com\", \"@homail.com\", \"@outlook.com\", \"@uol.com.br\", \"@terra.com.br\"];",
-							"",
-							"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"ProviderMail\", providerMail());",
-							"",
-							"pm.environment.set(\"Mail\", pm.environment.get(\"FirstName\") + \"_\" + pm.variables.replaceIn('{{$guid}}') + pm.environment.get(\"ProviderMail\"));",
-							"",
-							"",
-							"function gerarNumeroAleatorioCPF() {",
-							"    let numero = '';",
-							"    for (let i = 0; i < 11; i++) {",
-							"        numero += Math.floor(Math.random() * 10); // Adiciona um dígito aleatório de 0 a 9",
-							"    }",
-							"    return numero;",
-							"}",
-							"pm.environment.set(\"CPF\", gerarNumeroAleatorioCPF());",
-							"",
-							"function password1() {",
-							"",
-							"    let password1 = [\"test\", \"word\", \"oficce\", \"tes\", \"ana\", \"troca\", \"valor\"];",
-							"    let randomItem = password1[Math.floor(Math.random() * password1.length)];",
-							"",
-							"    return randomItem;",
-							"}",
-							"pm.environment.set(\"Password1\",password1());",
-							"",
-							"function password2() {",
-							"     let password2 = '';",
-							"    for (let i = 0; i < 4; i++) {",
-							"       password2 += Math.floor(Math.random() * 10);",
-							"       }",
-							"         return password2;",
-							"}",
-							"pm.environment.set(\"Password2\",password2());",
-							"",
-							"function caracter() {",
-							"",
-							"    let caracter = [\"@\",\"#\",\"$\",\"%\"];",
-							"    let randomItem = caracter[Math.floor(Math.random() * caracter.length)];",
-							"    return randomItem;",
-							"   ",
-							"}",
-							"pm.environment.set(\"Caracter\",caracter());",
-							"",
-							"",
-							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") + pm.environment.get(\"Caracter\") +pm.environment.get(\"Password2\"));"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -3699,163 +3184,10 @@
 							"",
 							"pm.test(\"check is msg: O e-mail informado é inválido. Informe um e-mail no formato [nome@domínio.com]. \", function(){",
 							"",
-							"    pm.expect(pm.globals.get(\"msgUserMailwithaccentuation\")).to.eql(JSON.parse(responseBody).error[0]);",
+							"    pm.expect(pm.globals.get(\"msgUserMailIncorret\")).to.eql(JSON.parse(responseBody).error[0]);",
 							"",
 							"})",
 							"",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{Token}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authorization",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"fullName\": \"{{FullName}}\",\n  \"mail\": \"{{Mail}}\",\n  \"accessProfile\": \"{{AccessProfile}}\",\n  \"cpf\": \"{{CPF}}\",\n  \"password\": \"{{Password}}\",\n  \"confirmPassword\": \"{{Password}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "signup User - Name with 2 character",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"function firstName() {",
-							"",
-							"    let firstName = [\"XI\", \"AN\", \"OU\", \"PE\", \"SP\", \"AU\", \"IX\", \"LA\", \"BI\", \"JO\", \"MA\", \"EU\", \"NO\", \"BA\", \"AS\", \"SO\", \"JU\", \"CA\"];",
-							"",
-							"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"FirstName\", firstName());",
-							"",
-							"",
-							"",
-							"pm.environment.set(\"FullName\", pm.environment.get(\"FirstName\"));",
-							"",
-							"",
-							"",
-							"/*function accessProfile() {",
-							"",
-							"    let accessProfile = [\"ADMIN \", \"FINANCEIRO\", \"ADMINISTRATIVO\", \"TI\", \"CUSTOS\", \"CONTROLADORIA\", \"VENDAS\", \"CONTAS\", \"SECRETARIA\"];",
-							"",
-							"    let randomItem = accessProfile[Math.floor(Math.random() * accessProfile.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"AccessProfile\", accessProfile());*/",
-							"",
-							"",
-							"function providerMail() {",
-							"",
-							"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\", \"@msn.com\", \"@homail.com\", \"@outlook.com\", \"@uol.com.br\", \"@terra.com.br\"];",
-							"",
-							"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"ProviderMail\", providerMail());",
-							"",
-							"pm.environment.set(\"Mail\", pm.environment.get(\"FirstName\") + \"_\" + pm.variables.replaceIn('{{$guid}}') + pm.environment.get(\"ProviderMail\"));",
-							"",
-							"",
-							"function gerarNumeroAleatorioCPF() {",
-							"    let numero = '';",
-							"    for (let i = 0; i < 11; i++) {",
-							"        numero += Math.floor(Math.random() * 10); // Adiciona um dígito aleatório de 0 a 9",
-							"    }",
-							"    return numero;",
-							"}",
-							"pm.environment.set(\"CPF\", gerarNumeroAleatorioCPF());",
-							"",
-							"function password1() {",
-							"",
-							"    let password1 = [\"Test\", \"Word\", \"Oficce\", \"Tes\", \"Ana\", \"Troca\", \"Valor\"];",
-							"    let randomItem = password1[Math.floor(Math.random() * password1.length)];",
-							"",
-							"    return randomItem;",
-							"}",
-							"pm.environment.set(\"Password1\",password1());",
-							"",
-							"function password2() {",
-							"     let password2 = '';",
-							"    for (let i = 0; i < 4; i++) {",
-							"       password2 += Math.floor(Math.random() * 10);",
-							"       }",
-							"         return password2;",
-							"}",
-							"pm.environment.set(\"Password2\",password2());",
-							"",
-							"function caracter() {",
-							"",
-							"    let caracter = [\"@\",\"#\",\"$\",\"%\"];",
-							"    let randomItem = caracter[Math.floor(Math.random() * caracter.length)];",
-							"    return randomItem;",
-							"   ",
-							"}",
-							"pm.environment.set(\"Caracter\",caracter());",
-							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") +pm.environment.get(\"Caracter\")+ pm.environment.get(\"Password2\"));"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});",
-							"",
-							"",
-							"pm.test(\"check is msg: Informe o nome e sobrenome com as iniciais em letra maiúscula e sem caracteres especiais \", function(){",
-							"",
-							"    pm.expect(pm.globals.get(\"msgUserNameIncorret\")).to.eql(JSON.parse(responseBody).error[0]);",
-							"",
-							"})",
 							"",
 							""
 						],
@@ -5042,7 +4374,7 @@
 			"response": []
 		},
 		{
-			"name": "update user ID -false",
+			"name": "signup User - Sucess",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -5089,7 +4421,7 @@
 							"",
 							"function providerMail() {",
 							"",
-							"    let providerMail = [\"@yahoo.com.br \", \"@gmail.com\", \"@msn.com\", \"@homail.com\", \"@outlook.com\", \"@uol.com.br\", \"@terra.com.br\"];",
+							"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\", \"@msn.com\", \"@homail.com\", \"@outlook.com\", \"@uol.com.br\", \"@terra.com.br\"];",
 							"",
 							"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)]",
 							"",
@@ -5097,7 +4429,6 @@
 							"}",
 							"",
 							"pm.environment.set(\"ProviderMail\", providerMail());",
-							"",
 							"",
 							"pm.environment.set(\"Mail\", pm.environment.get(\"FirstName\") + \"_\" + pm.variables.replaceIn('{{$guid}}') + pm.environment.get(\"ProviderMail\"));",
 							"",
@@ -5129,7 +4460,15 @@
 							"}",
 							"pm.environment.set(\"Password2\",password2());",
 							"",
-							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") +\"@\"+ pm.environment.get(\"Password2\"));"
+							"function caracter() {",
+							"",
+							"    let caracter = [\"@\",\"#\",\"$\",\"%\"]",
+							"    let randomItem = caracter[Math.floor(Math.random() * caracter.length)];",
+							"    return randomItem;",
+							"   ",
+							"}",
+							"pm.environment.set(\"Caracter\",caracter());",
+							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") +pm.environment.get(\"Caracter\")+ pm.environment.get(\"Password2\"));"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -5139,9 +4478,43 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
+							"let response = JSON.parse(responseBody);",
+							"pm.environment.set(\"IdUser\",response.user._id);",
+							"pm.environment.get(\"IdUser\",response.user._id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check is Fullname true\", function(){",
+							"pm.expect(pm.variables.get(\"FullName\")).to.eql(JSON.parse(responseBody).user.fullName);",
+							"});",
+							"",
+							"pm.test(\"check is mail true\", function() {",
+							"pm.expect(pm.variables.get(\"Mail\")).to.eql(JSON.parse(responseBody).user.mail);",
+							"});",
+							"",
+							"pm.test(\"Check is accessProfile true\", function(){",
+							"    pm.expect(pm.variables.get(\"AccessProfile\")).to.eql(JSON.parse(responseBody).user.accessProfile);",
+							"});",
+							"",
+							"pm.test(\"check is CPF true\", function(){",
+							"    pm.expect(pm.variables.get(\"CPF\")).to.eql(JSON.parse(responseBody).user.cpf);",
+							"",
+							"});",
+							"",
+							"let Mensagem =  \"Olá \" +  pm.environment.get(\"FullName\") + \", cadastro realizado com sucesso.\";",
+							"",
+							"console.log(Mensagem);",
+							"",
+							"",
+							"pm.test(\"check is mensagem true\", function(){",
+							"    pm.expect(Mensagem).to.eql(JSON.parse(responseBody).msg);",
+							"",
+							"})",
+							"",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -5164,7 +4537,7 @@
 						}
 					]
 				},
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -5176,71 +4549,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}user/{{IdUser}}",
+					"raw": "{{url}}user/",
 					"host": [
 						"{{url}}user"
-					],
-					"path": [
-						"{{IdUser}}"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "66154a1aaedbabfdea7b5b12",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "auth Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let response = JSON.parse(responseBody);",
-							"pm.environment.set(\"Token\",response.token);",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Check if the Email\", function() {",
-							" pm.expect(pm.variables.get(\"EmailAdmin\")).to.eql(JSON.parse(responseBody).user.mail);",
-							"});",
-							"",
-							"pm.test(\"Check if the token exist \", function(){",
-							"        pm.expect(JSON.parse(responseBody).token).to.exist; ",
-							"});",
-							"",
-							"",
-							" ",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"mail\": \"{{Mail}}\",\n  \"password\": \"{{Password}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}login/",
-					"host": [
-						"{{url}}login"
 					],
 					"path": [
 						""
@@ -5250,7 +4561,7 @@
 			"response": []
 		},
 		{
-			"name": "User Count",
+			"name": "User Count2",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -5545,146 +4856,29 @@
 			"response": []
 		},
 		{
-			"name": "signup User - Sucess Copy",
+			"name": "auth Copy",
 			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"function firstName() {",
-							"",
-							"    let firstName = [\"Willian\", \"Ana\", \"Joao\", \"Maria\", \"Pedro\", \"Aniceto\", \"Raimundo\", \"Laura\", \"Bianca\", \"Josias\", \"Marcelo\", \"Euripedis\", \"Bruno\", \"Barnabe\", \"Astoufo\", \"Sofia\", \"Julia\", \"Carol\"];",
-							"",
-							"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"FirstName\", firstName());",
-							"",
-							"",
-							"function lastName() {",
-							"",
-							"    let lastName = [\"da Silva\", \"dos Santos\", \"de Oliveira\", \"Alves\", \"Ferreira\", \"Matarazo\", \"Martins\", \"Souza\", \"Pereira\", \"Kubitchek\", \"Jesus\", \"Lima\", \"Duarte\", \"Rodrigues\", \"Morais\", \"Pinto\", \"Gomes\", \"Ribeiro\"];",
-							"",
-							"    let randomItem = lastName[Math.floor(Math.random() * lastName.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"LastName\", lastName());",
-							"",
-							"pm.environment.set(\"FullName\", pm.environment.get(\"FirstName\") + \" \" + pm.environment.get(\"LastName\"));",
-							"",
-							"",
-							"",
-							"/*function accessProfile() {",
-							"",
-							"    let accessProfile = [\"ADMIN \", \"FINANCEIRO\", \"ADMINISTRATIVO\", \"TI\", \"CUSTOS\", \"CONTROLADORIA\", \"VENDAS\", \"CONTAS\", \"SECRETARIA\"];",
-							"",
-							"    let randomItem = accessProfile[Math.floor(Math.random() * accessProfile.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"AccessProfile\", accessProfile());*/",
-							"",
-							"",
-							"function providerMail() {",
-							"",
-							"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\", \"@msn.com\", \"@homail.com\", \"@outlook.com\", \"@uol.com.br\", \"@terra.com.br\"];",
-							"",
-							"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)]",
-							"",
-							"    return randomItem",
-							"}",
-							"",
-							"pm.environment.set(\"ProviderMail\", providerMail());",
-							"",
-							"pm.environment.set(\"Mail\", pm.environment.get(\"FirstName\") + \"_\" + pm.variables.replaceIn('{{$guid}}') + pm.environment.get(\"ProviderMail\"));",
-							"",
-							"",
-							"function gerarNumeroAleatorioCPF() {",
-							"    let numero = '';",
-							"    for (let i = 0; i < 11; i++) {",
-							"        numero += Math.floor(Math.random() * 10); // Adiciona um dígito aleatório de 0 a 9",
-							"    }",
-							"    return numero;",
-							"}",
-							"pm.environment.set(\"CPF\", gerarNumeroAleatorioCPF());",
-							"",
-							"function password1() {",
-							"",
-							"    let password1 = [\"Test\", \"Word\", \"Oficce\", \"Tes\", \"Ana\", \"Troca\", \"Valor\"];",
-							"    let randomItem = password1[Math.floor(Math.random() * password1.length)];",
-							"",
-							"    return randomItem;",
-							"}",
-							"pm.environment.set(\"Password1\",password1());",
-							"",
-							"function password2() {",
-							"     let password2 = '';",
-							"    for (let i = 0; i < 4; i++) {",
-							"       password2 += Math.floor(Math.random() * 10);",
-							"       }",
-							"         return password2;",
-							"}",
-							"pm.environment.set(\"Password2\",password2());",
-							"",
-							"function caracter() {",
-							"",
-							"    let caracter = [\"@\",\"#\",\"$\",\"%\"]",
-							"    let randomItem = caracter[Math.floor(Math.random() * caracter.length)];",
-							"    return randomItem;",
-							"   ",
-							"}",
-							"pm.environment.set(\"Caracter\",caracter());",
-							"pm.environment.set(\"Password\", pm.environment.get(\"Password1\") +pm.environment.get(\"Caracter\")+ pm.environment.get(\"Password2\"));"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
 							"let response = JSON.parse(responseBody);",
-							"pm.environment.set(\"IdUser\",response.user._id);",
-							"pm.environment.get(\"IdUser\",response.user._id);",
+							"pm.environment.set(\"Token\",response.token);",
 							"",
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check if the Email\", function() {",
+							" pm.expect(pm.variables.get(\"Mail\")).to.eql(JSON.parse(responseBody).user.mail);",
+							"});",
+							"",
+							"pm.test(\"Check if the token exist \", function(){",
+							"        pm.expect(JSON.parse(responseBody).token).to.exist; ",
 							"});",
 							"",
 							"",
-							"pm.test(\"Check is Fullname true\", function(){",
-							"pm.expect(pm.variables.get(\"FullName\")).to.eql(JSON.parse(responseBody).user.fullName);",
-							"});",
-							"",
-							"pm.test(\"check is mail true\", function() {",
-							"pm.expect(pm.variables.get(\"Mail\")).to.eql(JSON.parse(responseBody).user.mail);",
-							"});",
-							"",
-							"pm.test(\"Check is accessProfile true\", function(){",
-							"    pm.expect(pm.variables.get(\"AccessProfile\")).to.eql(JSON.parse(responseBody).user.accessProfile);",
-							"});",
-							"",
-							"pm.test(\"check is CPF true\", function(){",
-							"    pm.expect(pm.variables.get(\"CPF\")).to.eql(JSON.parse(responseBody).user.cpf);",
-							"",
-							"});",
-							"",
-							"let Mensagem =  \"Olá \" +  pm.environment.get(\"FullName\") + \", cadastro realizado com sucesso.\";",
-							"",
-							"console.log(Mensagem);",
-							"",
-							"",
-							"pm.test(\"check is mensagem true\", function(){",
-							"    pm.expect(Mensagem).to.eql(JSON.parse(responseBody).msg);",
-							"",
-							"})",
-							"",
+							" ",
 							""
 						],
 						"type": "text/javascript",
@@ -5693,26 +4887,11 @@
 				}
 			],
 			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{Token}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authorization",
-							"type": "string"
-						}
-					]
-				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"fullName\": \"{{FullName}}\",\n  \"mail\": \"{{Mail}}\",\n  \"accessProfile\": \"{{AccessProfile}}\",\n  \"cpf\": \"{{CPF}}\",\n  \"password\": \"{{Password}}\",\n  \"confirmPassword\": \"{{Password}}\"\n}",
+					"raw": "{\n  \"mail\": \"{{Mail}}\",\n  \"password\": \"{{Password}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -5720,9 +4899,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}user/",
+					"raw": "{{url}}login/",
 					"host": [
-						"{{url}}user"
+						"{{url}}login"
 					],
 					"path": [
 						""
@@ -6400,91 +5579,6 @@
 			"response": []
 		},
 		{
-			"name": "Update status user - sucess Copy",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"",
-							"function status() {",
-							"    let status = Math.floor(Math.random() * 2); // Gera 0 ou 1",
-							"    return Boolean (status);// Converte para true (1) ou false (0)",
-							"}",
-							"pm.environment.set(\"Status\",status()); //Exibe true ou false"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Check is message true\", function(){",
-							"pm.expect(pm.globals.get(\"msgStatusUserSucess\")).to.eql(JSON.parse(responseBody).msg);",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{Token}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "authorization",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"status\": {{Status}}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/status/{{IdUser}}",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						"status",
-						"{{IdUser}}"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "66154a1aaedbabfdea7b5b12",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Update Password User - Sucess",
 			"event": [
 				{
@@ -6532,7 +5626,7 @@
 							"});",
 							"",
 							"pm.test(\"Check is Message true\", function(){",
-							"    pm.expect(pm.globals.set(\"msgPasswordUserSucess\")).to.eql(JSON.parse(responseBody).msg);",
+							"    pm.expect(pm.globals.get(\"msgPasswordUserSucess\")).to.eql(JSON.parse(responseBody).msg);",
 							"",
 							"});"
 						],
@@ -6589,7 +5683,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Password User - Sucess Copy",
+			"name": "Update Password User - Incorret",
 			"event": [
 				{
 					"listen": "prerequest",
