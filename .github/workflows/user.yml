@@ -46,7 +46,7 @@ jobs:
       
       #Runs a set of commands using the runners shell
     - name: Step 3 Execute collection
-      run: newman run ./user.json -g ./globals.json -e ./postman.json --delay-request 1 --reporters cli, -r htmlextra --reporter-htmlextra-export ./result/Report.html
+      run: newman run ./user.json -g ./globals.json -e ./postman.json --delay-request 1 --reporters cli -r htmlextra --reporter-htmlextra-export ./result/Report.html
 
     - name: Step4 Archive production artifacts
       uses: actions/upload-artifact@v3
