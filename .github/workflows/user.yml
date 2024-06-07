@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with action
+
+#name: Define o nome do fluxo de trabalho
+
+name: User
+
+#controls when the workflow will run 
+#on: Define os eventos que desencadeiam o workflow. No exemplo, o workflow 
+#é acionado sempre que houver um push na branch main.
+
+on:
+  push:
+    branches: [ "main" ] # Executar o workflow quando houver push na branch main
+  pull_request:
+     branches: [ "main" ]
+
+  #Allows you to run this workflow manually from the Action tab
+  workflow_dispatch:
+# A workflow run is made up of one more jobs that can run sequentially or in parallet
+jobs:
+  # this workflow contains a single job called "build" 
+ # jobs: Define os trabalhos (jobs) que serão executados pelo workflow.
+  build:
+  # the type of runner that the job will run on
+  # Define o nome do trabalho.
+    #runs-on: Define o ambiente de execução do trabalho
+    runs-on: ubuntu-latest
+    #steps represent a sequence of tasks that will be executed as part of the job
+    
+    steps:
+    #Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    #steps: Define os passos que serão executados dentro do trabalho
+    - uses: actions/checkout@v3 # Passo para fazer o checkout do repositório
+
+    #Runs a single command using the runners shell
+    - name: Step check version Newman and Node
+      run: |
+            newman --version
+            node --version
+      
+       #Runs a set of commands using the runners shell
+
+    - name: Step 2 Install Newman-Reporter-Htmlextra
+      run: sudo npm install - g newman-reporter-htmlextra # Instalar as dependências do projeto
+      
+      #Runs a set of commands using the runners shell
+    - name: Step 3 Install Execute collection
+      run: newman run ./user.json -g ./global.json -e ./postman.json --delay-request 2 --reporters cli, -r htmlextra-export ./result/Report.html
+
+
+    - name: Step4 Archive production artifacts
+      uses: action/upload-artifact@v3
+      with:
+          name: report
+          path: ./result/Report.html
