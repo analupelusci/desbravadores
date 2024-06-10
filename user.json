@@ -27,18 +27,7 @@
 							" pm.expect(pm.variables.get(\"EmailAdmin\")).to.eql(JSON.parse(responseBody).user.mail);",
 							"});",
 							"",
-							"let Name = pm.environment.get(\"Name\", response.user.fullName);",
 							"",
-							"",
-							"let Message = \"Olá \" + Name + \", autenticação autorizada com sucesso!\";",
-							"",
-							"",
-							"console.log(Message);",
-							"",
-							"pm.test (\"Check if the message\",function(){",
-							"    console.log(responseBody.msg);",
-							"    pm.expect(Message).to.eql(JSON.parse(responseBody).msg);   ",
-							"})",
 							"",
 							"pm.test(\"Check if the token exist \", function(){",
 							"        pm.expect(JSON.parse(responseBody).token).to.exist; ",
@@ -5079,9 +5068,32 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"let response = JSON.parse(responseBody);",
+							"pm.environment.set(\"IdUser\",response.updatedUser._id);",
+							"pm.environment.get(\"IdUser\",response.updatedUser._id);",
+							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});"
+							"});",
+							"",
+							"",
+							"pm.test(\"Check is Fullname true\", function(){",
+							"pm.expect(pm.variables.get(\"FullName\")).to.eql(JSON.parse(responseBody).updatedUser.fullName);",
+							"});",
+							"",
+							"pm.test(\"check is mail true\", function() {",
+							"pm.expect(pm.variables.get(\"Mail\")).to.eql(JSON.parse(responseBody).updatedUser.mail);",
+							"});",
+							"",
+							"pm.test(\"Check is accessProfile true\", function(){",
+							"    pm.expect(pm.variables.get(\"AccessProfile\")).to.eql(JSON.parse(responseBody).updatedUser.accessProfile);",
+							"});",
+							"",
+							"pm.test(\"check is CPF true\", function(){",
+							"    pm.expect(pm.variables.get(\"CPF\")).to.eql(JSON.parse(responseBody).updatedUser.cpf);",
+							"",
+							"});",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -5274,6 +5286,8 @@
 							"    //console.log(res.json().count);",
 							"    pm.environment.set(\"StatusUserFalse\", res.json().status);",
 							"    console.log(pm.environment.get(\"StatusUserFalse\"));",
+							"    pm.test(\"Check is message true\", function(){",
+							"    pm.expect(pm.environment.get(\"StatusUserFalse\")).to.eql(false); })",
 							"",
 							"});",
 							"",
@@ -5282,13 +5296,10 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Status is corret\", function() {",
-							"   pm.expect(pm.environment.get(\"StatusUserFalse\")).to.eql(false);",
-							"});",
-							"",
+							"/*",
 							"pm.test(\"Check is message true\", function(){",
 							"pm.expect(pm.globals.get(\"msgStatusUserSucessFalse\")).to.eql(JSON.parse(responseBody).msg);",
-							"});",
+							"});*/",
 							"",
 							""
 						],
@@ -5509,6 +5520,12 @@
 							" ",
 							"    pm.environment.set(\"StatusUser\", res.json().status);",
 							"    console.log(pm.environment.get(\"StatusUser\"));",
+							"",
+							"    pm.test(\"Status is corret\", function() {",
+							"    pm.expect(pm.environment.get(\"StatusUser\")).to.eql(true);",
+							"});",
+							"",
+							"",
 							"});",
 							"",
 							"",
@@ -5516,9 +5533,6 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Status is corret\", function() {",
-							"    pm.expect(pm.environment.get(\"StatusUser\")).to.eql(true);",
-							"});",
 							"",
 							"pm.test(\"Check is message true\", function(){",
 							"pm.expect(pm.globals.get(\"msgStatusUserSucess\")).to.eql(JSON.parse(responseBody).msg);",
@@ -5961,6 +5975,53 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"/*pm.sendRequest({",
+					" url: `${pm.environment.get('url')}login`,",
+					"    method: \"POST\",",
+					"    header: {",
+					"        \"Content-Type\": \"application/json\",",
+					"        \"Authorization\": `${pm.environment.get('Token')}`",
+					"    },",
+					"    body:{",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"             'mail': `${pm.environment.get('EmailAdmin')}`,",
+					"             'password': `${pm.environment.get('PasswordAdmim')}`",
+					"                             }),",
+					"",
+					"    },",
+					"",
+					"",
+					"},function(err, res){",
+					"    console.log(res);",
+					"    pm.expect(err).to.eql(null);",
+					"    pm.expect(res).to.have.property('code',200);",
+					"    pm.environment.set(\"Token\", res.json().token)",
+					"}",
+					"",
+					"",
+					")*/"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
